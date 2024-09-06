@@ -70,3 +70,8 @@ body {
 .search-history li:hover {
     text-decoration: underline;
 }
+
+/* Estilos para el botón de limpieza */
+#clearButton {
+    margin-bottom: 20px;
+}

@@ -56,5 +56,21 @@ function displaySearchHistory() {
     ).join(''); // Generar elementos interactivos de historial
 }
 
+// Función para limpiar la información del Pokémon y el historial
+function clearAll() {
+    // Limpiar la información del Pokémon
+    document.getElementById('pokemonInfo').innerHTML = `
+        <h2 id="pokemonName"></h2>
+        <p id="pokemonId"></p>
+        <p id="pokemonTypes"></p>
+        <p id="pokemonAbilities"></p>
+        <img id="pokemonImage" src="">
+    `; // Restaurar el HTML a su estado original vacío
+
+    // Limpiar el historial de búsquedas
+    searchHistory = [];
+    displaySearchHistory(); // Refrescar el historial vacío
+}
+
 // Agregar el evento al botón de búsqueda
 document.getElementById('searchBtn').addEventListener('click', () => fetchPokemon());
