@@ -1,12 +1,14 @@
-let searchHistory = []; // Declarar un array para guardar las búsquedas
+let searchHistory = []; // Arreglo para almacenar el historial de búsquedas
 
 // Función asincrónica para obtener los datos del Pokémon
-async function fetchPokemon() {
-    const pokemonNameOrId = document.getElementById('pokemonInput').value.toLowerCase().trim();
+async function fetchPokemon(pokemonNameOrId = null) {
+    const inputElement = document.getElementById('pokemonInput');
+    pokemonNameOrId = pokemonNameOrId || inputElement.value.toLowerCase().trim();
     if (!pokemonNameOrId) {
         alert('Por favor, ingresa un nombre o ID válido.');
         return;
     }
+    inputElement.value = pokemonNameOrId;  // Actualiza el campo de entrada con el valor seleccionado
 
     try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNameOrId}`);
@@ -15,7 +17,7 @@ async function fetchPokemon() {
         }
         const data = await response.json();
         displayPokemonInfo(data);
-        updateSearchHistory(pokemonNameOrId); // Actualizar el historial con la nueva búsqueda
+        updateSearchHistory(pokemonNameOrId); // Actualiza el historial
     } catch (error) {
         document.getElementById('pokemonInfo').innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
     }
@@ -37,23 +39,22 @@ function displayPokemonInfo(pokemon) {
 
 // Función para actualizar el historial de búsquedas
 function updateSearchHistory(pokemonName) {
-    searchHistory.unshift(pokemonName); // Añadir al inicio del array
-    if (searchHistory.length > 5) {
-        searchHistory.pop(); // Mantener solo las últimas 5 búsquedas
+    if (!searchHistory.includes(pokemonName)) { // Evitar duplicados en el historial
+        searchHistory.unshift(pokemonName); // Agregar al inicio del array
+        if (searchHistory.length > 5) {
+            searchHistory.pop(); // Mantener solo las últimas 5 búsquedas
+        }
+        displaySearchHistory();
     }
-    displaySearchHistory();
 }
 
 // Función para mostrar el historial de búsquedas
 function displaySearchHistory() {
     const historyList = document.getElementById('historyList');
-    historyList.innerHTML = ''; // Limpiar el historial actual
-    searchHistory.forEach(item => {
-        let listItem = document.createElement('li');
-        listItem.textContent = item;
-        historyList.appendChild(listItem);
-    });
+    historyList.innerHTML = searchHistory.map(item =>
+        `<li onclick="fetchPokemon('${item}')">${item}</li>`
+    ).join(''); // Generar elementos interactivos de historial
 }
 
 // Agregar el evento al botón de búsqueda
-document.getElementById('searchBtn').addEventListener('click', fetchPokemon);
+document.getElementById('searchBtn').addEventListener('click', () => fetchPokemon());
