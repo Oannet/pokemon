@@ -21,7 +21,7 @@ async function fetchPokemon() {
         // Convertir la respuesta en JSON
         const data = await response.json();
 
-        // Mostrar el nombre y la imagen del Pokémon en la página
+        // Mostrar el nombre, ID y la imagen del Pokémon en la página
         displayPokemonInfo(data); // Modifiqué para usar displayPokemonInfo en lugar de displayPokemonImage
 
     } catch (error) {
@@ -30,18 +30,16 @@ async function fetchPokemon() {
     }
 }
 
-// Función para mostrar el nombre y la imagen del Pokémon en la página
+// Función para mostrar el nombre, ID y la imagen del Pokémon en la página
 function displayPokemonInfo(pokemon) {
+    // Modifiqué esta función para mostrar el ID del Pokémon
     const pokemonInfoDiv = document.getElementById('pokemonInfo');
-    
-    // Crear el contenido HTML con el nombre y la imagen del Pokémon
-    const pokemonHTML = `
-        <h2 id="pokemonName">${pokemon.name}</h2> <!-- Agregue el nombre del Pokémon -->
-        <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
-    `;
-    
-    // Insertar el nombre y la imagen en el div
-    pokemonInfoDiv.innerHTML = pokemonHTML;
+
+    // Actualizo los elementos directamente para nombre, ID e imagen
+    document.getElementById('pokemonName').textContent = pokemon.name; // Modifique para mostrar el nombre
+    document.getElementById('pokemonId').textContent = `ID: ${pokemon.id}`; // Agregue para mostrar el ID
+    document.getElementById('pokemonImage').src = pokemon.sprites.front_default; // Modifiqué para usar src para la imagen
+    document.getElementById('pokemonImage').alt = pokemon.name; // Modifiqué para agregar un alt con el nombre del Pokémon
 }
 
 // Agregar el evento al botón de búsqueda
