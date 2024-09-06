@@ -1,4 +1,4 @@
-let searchHistory = []; // Agregue: Arreglo para almacenar las últimas 5 búsquedas
+let searchHistory = []; // Declarar un array para guardar las búsquedas
 
 // Función asincrónica para obtener los datos del Pokémon
 async function fetchPokemon() {
@@ -15,13 +15,13 @@ async function fetchPokemon() {
         }
         const data = await response.json();
         displayPokemonInfo(data);
-        updateSearchHistory(pokemonNameOrId); // Agregue: Actualiza el historial con la nueva búsqueda
+        updateSearchHistory(pokemonNameOrId); // Actualizar el historial con la nueva búsqueda
     } catch (error) {
         document.getElementById('pokemonInfo').innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
     }
 }
 
-// Función para mostrar el nombre, ID, tipos, habilidades y la imagen del Pokémon en la página
+// Función para mostrar el nombre, ID, tipos, habilidades y la imagen del Pokémon
 function displayPokemonInfo(pokemon) {
     document.getElementById('pokemonName').textContent = pokemon.name;
     document.getElementById('pokemonId').textContent = `ID: ${pokemon.id}`;
@@ -36,10 +36,10 @@ function displayPokemonInfo(pokemon) {
 }
 
 // Función para actualizar el historial de búsquedas
-function updateSearchHistory(searchTerm) {
-    searchHistory.unshift(searchTerm); // Agregue: Añadir la nueva búsqueda al inicio del historial
+function updateSearchHistory(pokemonName) {
+    searchHistory.unshift(pokemonName); // Añadir al inicio del array
     if (searchHistory.length > 5) {
-        searchHistory.pop(); // Agregue: Mantener solo las últimas 5 búsquedas
+        searchHistory.pop(); // Mantener solo las últimas 5 búsquedas
     }
     displaySearchHistory();
 }
@@ -47,11 +47,11 @@ function updateSearchHistory(searchTerm) {
 // Función para mostrar el historial de búsquedas
 function displaySearchHistory() {
     const historyList = document.getElementById('historyList');
-    historyList.innerHTML = ''; // Modifique: Limpiar el contenido actual
+    historyList.innerHTML = ''; // Limpiar el historial actual
     searchHistory.forEach(item => {
         let listItem = document.createElement('li');
         listItem.textContent = item;
-        historyList.appendChild(listItem); // Modifique: Añadir cada búsqueda al historial
+        historyList.appendChild(listItem);
     });
 }
 
