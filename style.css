@@ -29,7 +29,7 @@ body {
 #pokemonName {  /* Estilo para el nombre del Pokémon */
     font-size: 20px;
     color: #333;
-    margin-bottom: 5px; /* Modifiqué para ajustar espacio */
+    margin-bottom: 5px;
 }
 #pokemonId {  /* Estilo para el ID del Pokémon */
     font-size: 18px;
@@ -39,5 +39,10 @@ body {
 #pokemonTypes {  /* Estilo para los tipos del Pokémon */
     font-size: 16px;
     color: #666;
-    margin-bottom: 10px; /* Agregue para estilos de tipos */
+    margin-bottom: 5px;
+}
+#pokemonAbilities {  /* Estilo para las habilidades del Pokémon */
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px; /* Agregue para estilos de habilidades */
 }

@@ -21,7 +21,7 @@ async function fetchPokemon() {
         // Convertir la respuesta en JSON
         const data = await response.json();
 
-        // Mostrar el nombre, ID, tipos y la imagen del Pokémon en la página
+        // Mostrar el nombre, ID, tipos, habilidades y la imagen del Pokémon en la página
         displayPokemonInfo(data); // Modifiqué para usar displayPokemonInfo en lugar de displayPokemonImage
 
     } catch (error) {
@@ -30,19 +30,23 @@ async function fetchPokemon() {
     }
 }
 
-// Función para mostrar el nombre, ID, tipos y la imagen del Pokémon en la página
+// Función para mostrar el nombre, ID, tipos, habilidades y la imagen del Pokémon en la página
 function displayPokemonInfo(pokemon) {
     const pokemonInfoDiv = document.getElementById('pokemonInfo');
 
-    // Actualizo los elementos directamente para nombre, ID, tipos e imagen
+    // Actualizo los elementos directamente para nombre, ID, tipos, habilidades e imagen
     document.getElementById('pokemonName').textContent = pokemon.name; // Modifique para mostrar el nombre
     document.getElementById('pokemonId').textContent = `ID: ${pokemon.id}`; // Modifiqué para mostrar el ID
     document.getElementById('pokemonImage').src = pokemon.sprites.front_default; // Modifiqué para usar src para la imagen
     document.getElementById('pokemonImage').alt = pokemon.name; // Modifiqué para agregar un alt con el nombre del Pokémon
 
-    // Añadir tipos de Pokémon
+    // Mostrar los tipos de Pokémon
     const types = pokemon.types.map(type => type.type.name).join(', '); // Agregue para obtener los tipos
     document.getElementById('pokemonTypes').textContent = `Types: ${types}`; // Agregue para mostrar los tipos
+
+    // Mostrar las habilidades del Pokémon
+    const abilities = pokemon.abilities.map(ability => ability.ability.name).join(', '); // Agregue para obtener las habilidades
+    document.getElementById('pokemonAbilities').textContent = `Abilities: ${abilities}`; // Agregue para mostrar las habilidades
 }
 
 // Agregar el evento al botón de búsqueda
