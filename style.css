@@ -26,3 +26,8 @@ body {
 .input-group {
     margin-bottom: 20px;
 }
+#pokemonName {  /* Agregue estilo para el nombre del Pokémon */
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}

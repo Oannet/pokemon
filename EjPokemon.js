@@ -21,8 +21,8 @@ async function fetchPokemon() {
         // Convertir la respuesta en JSON
         const data = await response.json();
 
-        // Mostrar solo la imagen del Pokémon en la página
-        displayPokemonImage(data);
+        // Mostrar el nombre y la imagen del Pokémon en la página
+        displayPokemonInfo(data); // Modifiqué para usar displayPokemonInfo en lugar de displayPokemonImage
 
     } catch (error) {
         // Manejar errores (como si el Pokémon no existe)
@@ -30,16 +30,17 @@ async function fetchPokemon() {
     }
 }
 
-// Función para mostrar solo la imagen del Pokémon en la página
-function displayPokemonImage(pokemon) {
+// Función para mostrar el nombre y la imagen del Pokémon en la página
+function displayPokemonInfo(pokemon) {
     const pokemonInfoDiv = document.getElementById('pokemonInfo');
     
-    // Crear el contenido HTML con la imagen del Pokémon
+    // Crear el contenido HTML con el nombre y la imagen del Pokémon
     const pokemonHTML = `
+        <h2 id="pokemonName">${pokemon.name}</h2> <!-- Agregue el nombre del Pokémon -->
         <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
     `;
     
-    // Insertar la imagen en el div
+    // Insertar el nombre y la imagen en el div
     pokemonInfoDiv.innerHTML = pokemonHTML;
 }
 
