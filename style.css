@@ -26,13 +26,18 @@ body {
 .input-group {
     margin-bottom: 20px;
 }
-#pokemonName {  /* Agregue estilo para el nombre del Pokémon */
+#pokemonName {  /* Estilo para el nombre del Pokémon */
     font-size: 20px;
     color: #333;
     margin-bottom: 5px; /* Modifiqué para ajustar espacio */
 }
-#pokemonId {  /* Agregue estilo para el ID del Pokémon */
+#pokemonId {  /* Estilo para el ID del Pokémon */
     font-size: 18px;
     color: #555;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+}
+#pokemonTypes {  /* Estilo para los tipos del Pokémon */
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px; /* Agregue para estilos de tipos */
 }
