@@ -1,6 +1,6 @@
 let searchHistory = []; // Arreglo para almacenar el historial de búsquedas
 
-// Función asincrónica para obtener los datos del Pokémon
+// Función asincrónica para obtener los datos del Pokémon y limpiar la información antes de la nueva búsqueda
 async function fetchPokemon(pokemonNameOrId = null) {
     const inputElement = document.getElementById('pokemonInput');
     pokemonNameOrId = pokemonNameOrId || inputElement.value.toLowerCase().trim();
@@ -8,7 +8,13 @@ async function fetchPokemon(pokemonNameOrId = null) {
         alert('Por favor, ingresa un nombre o ID válido.');
         return;
     }
-    inputElement.value = pokemonNameOrId;  // Actualiza el campo de entrada con el valor seleccionado
+
+    // Mostrar mensaje de carga antes de la nueva búsqueda
+    document.getElementById('pokemonName').textContent = 'Cargando...';
+    document.getElementById('pokemonId').textContent = '';
+    document.getElementById('pokemonTypes').textContent = '';
+    document.getElementById('pokemonAbilities').textContent = '';
+    document.getElementById('pokemonImage').src = ''; // Limpiar imagen
 
     try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNameOrId}`);
@@ -16,10 +22,10 @@ async function fetchPokemon(pokemonNameOrId = null) {
             throw new Error('Pokémon no encontrado');
         }
         const data = await response.json();
-        displayPokemonInfo(data);
-        updateSearchHistory(pokemonNameOrId); // Actualiza el historial
+        displayPokemonInfo(data); // Mostrar la información del nuevo Pokémon Modifiqué para usar displayPokemonInfo en lugar de displayPokemonImage
+        updateSearchHistory(pokemonNameOrId); // Actualiza el historial de búsqueda
     } catch (error) {
-        document.getElementById('pokemonInfo').innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+        document.getElementById('pokemonName').textContent = `Error: ${error.message}`;
     }
 }
 
@@ -59,13 +65,11 @@ function displaySearchHistory() {
 // Función para limpiar la información del Pokémon y el historial
 function clearAll() {
     // Limpiar la información del Pokémon
-    document.getElementById('pokemonInfo').innerHTML = `
-        <h2 id="pokemonName"></h2>
-        <p id="pokemonId"></p>
-        <p id="pokemonTypes"></p>
-        <p id="pokemonAbilities"></p>
-        <img id="pokemonImage" src="">
-    `; // Restaurar el HTML a su estado original vacío
+    document.getElementById('pokemonName').textContent = '';
+    document.getElementById('pokemonId').textContent = '';
+    document.getElementById('pokemonTypes').textContent = '';
+    document.getElementById('pokemonAbilities').textContent = '';
+    document.getElementById('pokemonImage').src = ''; // Limpiar imagen
 
     // Limpiar el historial de búsquedas
     searchHistory = [];
