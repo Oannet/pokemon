@@ -10,11 +10,7 @@ async function fetchPokemon(pokemonNameOrId = null) {
     }
 
     // Mostrar mensaje de carga antes de la nueva búsqueda
-    document.getElementById('pokemonName').textContent = 'Cargando...';
-    document.getElementById('pokemonId').textContent = '';
-    document.getElementById('pokemonTypes').textContent = '';
-    document.getElementById('pokemonAbilities').textContent = '';
-    document.getElementById('pokemonImage').src = ''; // Limpiar imagen
+    document.getElementById('pokemonInfo').innerHTML = '<p>Cargando...</p>'; // Mostrar mensaje de carga
 
     try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNameOrId}`);
@@ -22,25 +18,22 @@ async function fetchPokemon(pokemonNameOrId = null) {
             throw new Error('Pokémon no encontrado');
         }
         const data = await response.json();
-        displayPokemonInfo(data); // Mostrar la información del nuevo Pokémon Modifiqué para usar displayPokemonInfo en lugar de displayPokemonImage
+        displayPokemonInfo(data); // Mostrar la información del nuevo Pokémon
         updateSearchHistory(pokemonNameOrId); // Actualiza el historial de búsqueda
     } catch (error) {
-        document.getElementById('pokemonName').textContent = `Error: ${error.message}`;
+        document.getElementById('pokemonInfo').innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
     }
 }
 
-// Función para mostrar el nombre, ID, tipos, habilidades y la imagen del Pokémon
+// Función para mostrar toda la información del Pokémon en un único <div>
 function displayPokemonInfo(pokemon) {
-    document.getElementById('pokemonName').textContent = pokemon.name;
-    document.getElementById('pokemonId').textContent = `ID: ${pokemon.id}`;
-    document.getElementById('pokemonImage').src = pokemon.sprites.front_default;
-    document.getElementById('pokemonImage').alt = pokemon.name;
-
-    const types = pokemon.types.map(type => type.type.name).join(', ');
-    document.getElementById('pokemonTypes').textContent = `Types: ${types}`;
-
-    const abilities = pokemon.abilities.map(ability => ability.ability.name).join(', ');
-    document.getElementById('pokemonAbilities').textContent = `Abilities: ${abilities}`;
+    const pokemonContent = `
+        <h2>${pokemon.name} (ID: ${pokemon.id})</h2>
+        <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+        <p>Types: ${pokemon.types.map(type => type.type.name).join(', ')}</p>
+        <p>Abilities: ${pokemon.abilities.map(ability => ability.ability.name).join(', ')}</p>
+    `;
+    document.getElementById('pokemonInfo').innerHTML = pokemonContent;
 }
 
 // Función para actualizar el historial de búsquedas
@@ -65,11 +58,7 @@ function displaySearchHistory() {
 // Función para limpiar la información del Pokémon y el historial
 function clearAll() {
     // Limpiar la información del Pokémon
-    document.getElementById('pokemonName').textContent = '';
-    document.getElementById('pokemonId').textContent = '';
-    document.getElementById('pokemonTypes').textContent = '';
-    document.getElementById('pokemonAbilities').textContent = '';
-    document.getElementById('pokemonImage').src = ''; // Limpiar imagen
+    document.getElementById('pokemonInfo').innerHTML = '';
 
     // Limpiar el historial de búsquedas
     searchHistory = [];
