@@ -47,7 +47,6 @@ body {
     margin-bottom: 10px;
 }
 
-/* Estilos para el historial de búsquedas */
 .search-history {
     margin-top: 20px;
     background-color: #f9f9f9;
@@ -71,7 +70,6 @@ body {
     text-decoration: underline;
 }
 
-/* Estilos para el botón de limpieza */
 #clearButton {
     margin-bottom: 20px;
 }
